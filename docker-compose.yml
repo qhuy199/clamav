@@ -1,0 +1,16 @@
+version: '3.7'
+
+services:
+  av:    
+    image: qhuy199/clamav:1.0
+    volumes:
+      - ./data:/var/lib/clamav
+      - ./config/freshclam.conf:/etc/freshclam.conf
+      - ./config/scan.conf:/etc/clamd.d/scan.conf
+  rest-api:
+    image: qhuy199/clamav-rest-api:1.0
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./config/clamav-rest-api/config.env:/clamav-rest-api/.env
+
