@@ -1,16 +1,48 @@
-version: '3.7'
+version: '3.8'
+
+# clamav varribles
+x-clamav-server-name: &clamav-server-name
+  av
+# clamav REST API varribles
+x-clamav-rest-api-server-name: &clamav-rest-api-server-name
+  av-rest-api
+x-clamav-rest-api-node_env: &clamav-rest-api-node-env
+  production
+x-clamav-rest-api-app_port: &clamav-rest-api-app-port
+  8080
+x-clamav-rest-api-app_form_key: &clamav-rest-api-app-form-key
+  FILES
+x-clamav-rest-api-app_morgan_log_format: &clamav-rest-api-app-morgan-log-format
+  combined
+x-clamav-rest-api-app_max_file_size: &clamav-rest-api-app-max-file-size
+  26214400
+x-clamav-rest-api-app_max_files_number: &clamav-rest-api-app-max-files-number
+  4
+x-clamav-rest-api-clamd_port: &clamav-rest-api-clamd-port
+  3310
+x-clamav-rest-api-clamd_timeout: &clamav-rest-api-clamd-timeout
+  30000
 
 services:
-  av:    
+  *clamav-server-name:    
     image: qhuy199/clamav:1.0
     volumes:
       - ./data:/var/lib/clamav
       - ./config/freshclam.conf:/etc/freshclam.conf
-      - ./config/scan.conf:/etc/clamd.d/scan.conf
-  rest-api:
+      - ./config/scan.conf:/etc/clamd.d/scan.conf      
+  *clamav-rest-api-server-name:
     image: qhuy199/clamav-rest-api:1.0
     ports:
       - "8080:8080"
-    volumes:
-      - ./config/clamav-rest-api/config.env:/clamav-rest-api/.env
+    enviroment:
+      NODE_ENV=*clamav-rest-api-node-env
+      APP_PORT=*clamav-rest-api-app-port
+      APP_FORM_KEY=*clamav-rest-api-app-form-key
+      APP_MORGAN_LOG_FORMAT=*clamav-rest-api-app-morgan-log-format
+      APP_MAX_FILE_SIZE=*clamav-rest-api-app-max-file-size
+      APP_MAX_FILES_NUMBER=*clamav-rest-api-app-max-files-number
+      CLAMD_IP=*clamav-server-name
+      CLAMD_PORT=*clamav-rest-api-clamd-port
+      CLAMD_TIMEOUT=*clamav-rest-api-clamd-timeout
+
 
