@@ -34,15 +34,15 @@ services:
     image: qhuy199/clamav-rest-api:1.0
     ports:
       - "8080:8080"
-    enviroment:
-      NODE_ENV=*clamav-rest-api-node-env
-      APP_PORT=*clamav-rest-api-app-port
-      APP_FORM_KEY=*clamav-rest-api-app-form-key
-      APP_MORGAN_LOG_FORMAT=*clamav-rest-api-app-morgan-log-format
-      APP_MAX_FILE_SIZE=*clamav-rest-api-app-max-file-size
-      APP_MAX_FILES_NUMBER=*clamav-rest-api-app-max-files-number
-      CLAMD_IP=*clamav-server-name
-      CLAMD_PORT=*clamav-rest-api-clamd-port
-      CLAMD_TIMEOUT=*clamav-rest-api-clamd-timeout
+    environment:
+      NODE_ENV: *clamav-rest-api-node-env
+      APP_PORT: *clamav-rest-api-app-port
+      APP_FORM_KEY: *clamav-rest-api-app-form-key
+      APP_MORGAN_LOG_FORMAT: *clamav-rest-api-app-morgan-log-format
+      APP_MAX_FILE_SIZE: *clamav-rest-api-app-max-file-size
+      APP_MAX_FILES_NUMBER: *clamav-rest-api-app-max-files-number
+      CLAMD_IP: *clamav-server-name
+      CLAMD_PORT: *clamav-rest-api-clamd-port
+      CLAMD_TIMEOUT: *clamav-rest-api-clamd-timeout
 
 
