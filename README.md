@@ -9,6 +9,7 @@ Docker Swarm chạy 2 docker services: "clamav" và "rest api".
 
 **"rest api"**
 - Mở port 8080 nhận request từ Client rồi đẩy sang "clamav" xử lý
+- 
 Chấp nhận tối đa:
 - 4 Files / request
 - 25 MB / File
