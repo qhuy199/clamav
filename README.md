@@ -5,7 +5,7 @@ Docker Swarm chạy 2 docker services: "clamav" và "rest api".
 **"clamav"**
 - Mở port tcp 3310 cho dịch vụ clamd xử lý các yêu cầu scan virus gửi đến.
 - Signatures: Clamav & SecuriteInfo
-- Tự động update: Kiểm tra update mỗi 2 tiếng. `Note: ` SecuriteInfo chỉ chấp nhận tối đa 24 lần download / ngày
+- Daemon freshclam tự động update: Kiểm tra update mỗi 2 tiếng. `Note: ` SecuriteInfo chỉ chấp nhận tối đa 24 lần download / ngày
 
 **"rest api"**
 - Mở port 8080 nhận request từ Client rồi đẩy sang "clamav" xử lý
