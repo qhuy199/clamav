@@ -9,6 +9,9 @@ Docker Swarm chạy 2 docker services: "clamav" và "rest api".
 
 **"rest api"**
 - Mở port 8080 nhận request từ Client rồi đẩy sang "clamav" xử lý
+Chấp nhận tối đa:
+- 4 Files / request
+- 
 
 #### Chạy "clamav" và "rest api" trên Docker Swarm:
 `Note:` File cấu hình freshclam.conf trên git chưa bao gồm cài đặt cho SecuriteInfo. Sẽ được thêm vào sau khi đã đưa lên product.
