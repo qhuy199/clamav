@@ -17,7 +17,7 @@ x-clamav-rest-api-app_morgan_log_format: &clamav-rest-api-app-morgan-log-format
 x-clamav-rest-api-app_max_file_size: &clamav-rest-api-app-max-file-size
   26214400
 x-clamav-rest-api-app_max_files_number: &clamav-rest-api-app-max-files-number
-  8
+  8 
 x-clamav-rest-api-clamd_port: &clamav-rest-api-clamd-port
   3310
 x-clamav-rest-api-clamd_timeout: &clamav-rest-api-clamd-timeout
@@ -29,7 +29,16 @@ services:
     volumes:
       - ./data:/var/lib/clamav
       - ./config/freshclam.conf:/etc/freshclam.conf
-      - ./config/scan.conf:/etc/clamd.d/scan.conf      
+      - ./config/scan.conf:/etc/clamd.d/scan.conf
+    deploy:
+      resources:
+        limits:
+          cpus: "0.5"
+          memory: 3G
+    networks:
+      - clamav_network
+      - bridge
+      
   *clamav-rest-api-server-name:
     image: qhuy199/clamav-rest-api:1.0
     ports:
@@ -44,5 +53,18 @@ services:
       CLAMD_IP: *clamav-server-name
       CLAMD_PORT: *clamav-rest-api-clamd-port
       CLAMD_TIMEOUT: *clamav-rest-api-clamd-timeout
+    deploy:
+      resources:
+        limits:
+          cpus: "0.5"
+          memory: 1G
+    networks:
+      - clamav_network
+      - bridge
 
-
+networks:
+    clamav_network:
+      driver: overlay
+      attachable: true
+    bridge:
+      external: true
